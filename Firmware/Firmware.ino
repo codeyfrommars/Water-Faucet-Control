@@ -12,6 +12,8 @@ Rotator rot1;
 VL53L1X sensor;
 
 int maxAngle = 90; //this is the range of motion of your sink
+unsigned long onTimer = 0;
+unsigned long timerDelay = 600000; // time until automatic shutoff
 
 void setup() {
   Serial.begin(115200);
@@ -41,9 +43,14 @@ void loop() {
   if (distance < 300) {
     Serial.print(distance);
     int coord = convertDistance(distance);
-    cMotor->moveSteps(coord);
+    cMotor->moveSteps(-coord);
+    onTimer = millis();
     Serial.print(" current coord: ");
     Serial.println(cMotor->currentCoord);
+  } else {
+    if (millis() - onTimer > timerDelay) { // after one minute, automatically shut off
+      cMotor->moveSteps(0);
+    }
   }
 }
 
