@@ -8,7 +8,7 @@ app = Flask(__name__, static_folder='static')
 app.register_blueprint(api, url_prefix='/api')
 
 def initConfig():
-    config = Configuration(0.5, 90, 60000)
+    config = Configuration(200, 90, 10000)
     db_file = open('config.out', 'wb')
     pickle.dump(config, db_file)
     db_file.close()
@@ -23,4 +23,5 @@ def settings():
 
 
 if __name__ == '__main__':
+    initConfig()
     app.run('0.0.0.0', 5000)

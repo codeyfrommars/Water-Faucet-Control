@@ -18,7 +18,7 @@ def unpickle_log():
 @api.route('/set-sensitivity', methods=['POST'])
 def set_sensitivity():
     new_sensitivity = request.form.get('data')
-    settings = unpickle_db()[0]
+    settings = unpickle_db()
     settings.sensitivity = new_sensitivity
     pickle.dump(settings, open('config.out', 'wb'))
     return ('ok', 200)
@@ -26,7 +26,7 @@ def set_sensitivity():
 @api.route('/set-angle-limit', methods=['POST'])
 def set_angle_limit():
     new_limit = request.form.get('data')
-    settings = unpickle_db()[0]
+    settings = unpickle_db()
     settings.angle_limit = new_limit
     pickle.dump(settings, open('config.out', 'wb'))
     return ('ok', 200)
@@ -34,7 +34,7 @@ def set_angle_limit():
 @api.route('/set-shutoff-duration', methods=['POST'])
 def set_shutoff_duration():
     new_limit = request.form.get('data')
-    settings = unpickle_db()[0]
+    settings = unpickle_db()
     settings.shutoff_duration = new_duration
     pickle.dump(settings, open('config.out', 'wb'))
     return ('ok', 200)
@@ -42,7 +42,7 @@ def set_shutoff_duration():
 
 @api.route('/get-settings', methods=['GET'])
 def get_settings():
-    settings = unpickle_db()[0]
+    settings = unpickle_db()
     res = jsonify ({
         'gesture-sensitivity' : settings.gesture_rate,
         'angle-limit' : settings.angle_limit,
