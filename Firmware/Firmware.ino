@@ -127,7 +127,7 @@ void sendFaucetStatus(int distance) {
 
   http.begin("http://192.168.1.2:5000/api/log");
   http.addHeader("Content-Type", "application/json");
-  String httpRequestData = "{\"time\":\"" + String(currentTime) + "\",\"is_open\":\"" + String(faucetStatus) + "\",\"open_angle\":\"" + String(openAngle) + "\"}";
+  String httpRequestData = "{\"time\":\"" + String(currentTime) + "\",\"is-open\":\"" + String(faucetStatus) + "\",\"open-angle\":\"" + String(openAngle) + "\"}";
   int httpCode = http.POST(httpRequestData);
 
   if (httpCode > 0) {
