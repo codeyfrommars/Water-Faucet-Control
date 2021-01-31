@@ -6,7 +6,7 @@
 #include <Wire.h>
 #include <VL53L1X.h>
 
-const char* ssid = "user";
+const char* ssid = "username";
 const char* password = "password";
 
 Rotator* cMotor;
@@ -55,7 +55,7 @@ void setup() {
 
 void loop() {
   int distance = sensor.read();
-  if (distance < 300) {
+  if (distance < 200 && distance > 0) {
     Serial.print(distance);
     int coord = convertDistance(distance);
     cMotor->moveSteps(-coord);
@@ -71,7 +71,7 @@ void loop() {
 
 int convertDistance (int distance) { // convert distance to motor steps
   //300 -> 90 degrees (800 steps)
-  return distance * (3200 * maxAngle / 360) / 300;
+  return distance * (3200 * maxAngle / 360) / 200;
 }
 
 

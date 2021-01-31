@@ -1,7 +1,7 @@
 #include "Motor.h"
 
 Motor::Motor() {
-  rotateAccel = 100000;
+  rotateAccel = 50000;
   rotatedirPin = 2;
   rotatestepPin = 0;
   RMS3 = 27;
@@ -21,7 +21,7 @@ Motor::Motor() {
   rotateconttimerMux = portMUX_INITIALIZER_UNLOCKED;
   d = 100000;
   dir = 0; //direction
-  rotateSpd = 10000;
+  rotateSpd = 6000;
   n = 0;
   stepCount = 0;
   rampUpStepCount = 0;
