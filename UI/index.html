@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--========== BOX ICONS ==========-->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+        <!--========== CSS ==========-->
+        <link rel="stylesheet" href="assets/css/styles.css">
+
+        <title>Smart Faucet</title>
+    </head>
+    <body>
+
+        <!--========== SCROLL TOP ==========-->
+        <a href="#" class="scrolltop" id="scroll-top">
+            <i class='bx bx-chevron-up scrolltop__icon'></i>
+        </a>
+
+        <!--========== HEADER ==========-->
+        <header class="l-header" id="header">
+            <nav class="nav bd-container">
+                <a href="#" class="nav__logo">Smart Faucet</a>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
+                        <li class="nav__item"><a href="#menu1" class="nav__link">Analytics</a></li>
+                        <li class="nav__item"><a href="#brid" class="nav__link">Settings</a></li>
+                        <li class="nav__item"><a href="#contact" class="nav__link">Our Team</a></li>
+
+                        <li><i class='bx bx-moon change-theme' id="theme-button"></i></li>
+                    </ul>
+                </div>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class='bx bx-menu'></i>
+                </div>
+            </nav>
+        </header>
+
+        <main class="l-main">
+            <!--========== HOME ==========-->
+            <section class="home" id="home">
+                <div class="home__container bd-container bd-grid">
+                    <div class="home__data">
+                        <h1 class="home__title">Smart Faucet</h1>
+                        <h2 class="home__subtitle">Control the faucet<br>however you want</h2>
+                        <a href="#brid" class="button">Take me to Controls</a>
+                    </div>
+    
+                    <img src="assets/img/tap.png" alt="" class="home__img">
+                </div>
+            </section>
+
+
+
+             <!--========== Switch ON ==========-->
+             <section class="about section bd-container" id="brid">
+                <div class="about__container  bd-grid">
+                    <div class="about__data">
+                        <a href="#" class="button">Switch it On</a>
+                    </div>
+                    <img src="assets/img/flowtap.png" alt="" class="about__img">
+                </div>
+            </section>
+
+
+
+            <!--========== Switch OFf ==========-->
+            <section class="about section bd-container" id="brid">
+                <div class="about__container  bd-grid">
+                    <div class="about__data">
+                        <a href="#" class="button">Switch it Off</a>
+                    </div>
+                    <img src="assets/img/stoptap.png" alt="" class="about__img">     
+                </div>
+            </section>
+            
+
+             <!--========== Sensitivity Slider==========-->
+            <section class="about section bd-container" id="brid"></section>
+            <div class="slidecontainer">
+                <h1>Gesture Sensitivity Control</h1><br/>
+                <input type="range" min="1" max="100" value="0" class="slider" id="myRange">
+                <p>Value: <span id="demo"></span></p>
+              </div>
+            </section>
+
+
+              <!--===== APP =======-->
+            <section class="app section bd-container">
+                <div class="app__container bd-grid">
+                    <div class="app__data">   
+                        <h2 class="section-title app__initial">Faucet Flow Control</h2>
+                        <input type="text" id="fangle" name="Flow Angle" placeholder="Enter the Faucet angle"> 
+                        <a href="#" class="button">Adjust Flow</a>
+                    </div>
+
+                    <img src="https://media.giphy.com/media/lVB8T943vjkc2ndh7n/giphy.gif" alt="" class="app__img">
+                </div>
+            </section>
+
+
+            <!--===== TUrnOff Time =======-->
+            <section class="app section bd-container">
+                <div class="app__container bd-grid">
+                    <div class="app__data">   
+                        <h2 class="section-title app__initial">Turn Off Time</h2>
+                        <input type="text" id="fangle" name="Flow Angle" placeholder="Enter the Faucet off time"> 
+                        <a href="#" class="button">Time Off</a>
+                    </div>
+
+                    <img src="https://media.giphy.com/media/lVB8T943vjkc2ndh7n/giphy.gif" alt="" class="app__img">
+                </div>
+            </section>
+           
+
+            <!--========== SERVICES ==========-->
+            <section class="menu section bd-container" id="menu1">
+                <span class="section-subtitle">Save Water Save Life</span>
+                <h2 class="section-title">Track Your Water Usage</h2>
+
+                <div class="services__container  bd-grid">
+                    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                </div>
+            </section>
+
+            <!--========== MENU ==========-->
+            <section class="menu section bd-container" id="menu1">
+                <span class="section-subtitle">Usage Logs</span>
+                <h2 class="section-title">Your Faucet Operation Times</h2>
+
+               
+                    <table id="customers">
+                        <tr>
+                          <th>Time Started</th>
+                          <th>Time Stopped</th>
+                          <th>Usage</th>
+                        </tr>
+                        <tr>
+                          <td>10.10AM</td>
+                          <td>10.12AM</td>
+                          <td>Low</td>
+                        </tr>
+                        <tr>
+                            <td>10.10AM</td>
+                            <td>10.12AM</td>
+                            <td>Low</td>
+                          </tr>
+                          <tr>
+                            <td>10.10AM</td>
+                            <td>10.12AM</td>
+                            <td>Low</td>
+                          </tr>
+                          <tr>
+                            <td>10.10AM</td>
+                            <td>10.12AM</td>
+                            <td>Low</td>
+                          </tr>
+                          <tr>
+                            <td>10.10AM</td>
+                            <td>10.12AM</td>
+                            <td>Low</td>
+                          </tr>
+                      </table>
+                
+            </section>
+
+
+             <!--========== MENU ==========-->
+             <section class="menu section bd-container" id="contact">
+                <span class="section-subtitle">Team</span>
+                <h2 class="section-title">Meet our Wonderful Hackers</h2>
+
+                <div class="menu__container bd-grid">
+                    <div class="menu__content">
+                        <img src="assets/img/avtar.jfif" alt="" class="menu__img">
+                        <h3 class="menu__name">Codey</h3>
+                        <span class="menu__detail">Hardware and IoT Expert</span>
+                        <a href="#dhanu" class="button menu__button"><i class='bx bxs-right-arrow bx-fade-right-hover'></i></a>
+                    </div>
+
+                    <div class="menu__content">
+                        <img src="assets/img/avtar.jfif" alt="" class="menu__img">
+                        <h3 class="menu__name">Wimbo</h3>
+                        <span class="menu__detail">Backend Expert</span>
+                        <a href="#dhanu" class="button menu__button"><i class='bx bxs-right-arrow bx-fade-right-hover'></i></a>
+                    </div>
+
+                    
+
+                    <div class="menu__content">
+                        <img src="assets/img/avtar.jfif" alt="" class="menu__img">
+                        <h3 class="menu__name">Khushi</h3>
+                        <span class="menu__detail">Charts and Design Expert</span>
+                        <a href="#" class="button menu__button"><i class='bx bxs-right-arrow bx-fade-right-hover'></i></a>
+                    </div>
+
+                    <div></div>
+                    
+                    <div class="menu__content">
+                        <img src="assets/img/avtar.jfif" alt="" class="menu__img">
+                        <h3 class="menu__name">Rutam</h3>
+                        <span class="menu__detail">Frontend Expert</span>
+                        <a href="#" class="button menu__button"><i class='bx bxs-right-arrow bx-fade-right-hover'></i></a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!--========== FOOTER ==========-->
+        <footer class="footer section bd-container">
+            <p class="footer__copy">&#169; 2021. Smart Faucet . All Rights Reserved</p>
+        </footer>
+
+        <!--========== SCROLL REVEAL ==========-->
+        <script src="https://unpkg.com/scrollreveal"></script>
+
+        <!--========== MAIN JS ==========-->
+        <script src="assets/js/main.js"></script>
+        <script type="text/javascript">
+            window.onload = function () {
+                var chart = new CanvasJS.Chart("chartContainer",
+                {
+                    animationEnabled: true, 
+                    animationDuration: 2000,   //change to 1000, 500 etc
+                    title:{
+                        text: "Faucet Usage Analytics"
+                    },
+                    theme: "dark2", 
+                    data: [
+                    {
+                        type: "column",
+                        dataPoints: [
+                            { x: 10, y: 71 },
+                            { x: 11, y: 55 },
+                            { x: 12, y: 50 },
+                            { x: 1, y: 65 },
+                            { x: 2, y: 95 },
+                            { x: 3, y: 68 },
+                            { x: 4, y: 28 },
+                            { x: 5, y: 34 },
+                            { x: 6, y: 22 },
+                            { x: 7, y: 18 },
+                            { x: 8, y: 26 },
+                            { x: 9, y: 40 },
+                            { x: 10, y: 20 }
+                        ]
+                    }
+                    ]
+                });
+                chart.render();
+            }
+            </script>
+            <script>
+                var slider = document.getElementById("myRange");
+                var output = document.getElementById("demo");
+                output.innerHTML = slider.value;
+                
+                slider.oninput = function() {
+                  output.innerHTML = this.value;
+                }
+                </script>
+            <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    </body>
+</html>
