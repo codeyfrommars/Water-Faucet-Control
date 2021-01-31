@@ -1,10 +1,13 @@
 
 #include <WiFi.h>
-#include <WiFiClient.h>
+#include <HTTPClient.h>
+
 #include "Rotator.h"
 #include <Wire.h>
 #include <VL53L1X.h>
 
+const char* ssid = "user";
+const char* password = "password";
 
 Rotator* cMotor;
 //motor objects
@@ -13,14 +16,26 @@ VL53L1X sensor;
 
 int maxAngle = 90; //this is the range of motion of your sink
 unsigned long onTimer = 0;
-unsigned long timerDelay = 600000; // time until automatic shutoff
+unsigned long timerDelay = 10000; // time until automatic shutoff
 
 void setup() {
   Serial.begin(115200);
-  Wire.begin();
-  Wire.setClock(400000); // use 400 kHz I2C
+  
+  WiFi.begin(ssid, password); // connect to wifi
+  Serial.print("Connecting to WiFi");
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print(".");
+    delay(500);
+  }
+  Serial.println("\nConnected to the WiFi network");
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
 
   //set up sensor
+  
+  Wire.begin();
+  Wire.setClock(400000); // use 400 kHz I2C
+  
   sensor.setTimeout(500);
   if (!sensor.init())
   {
@@ -63,7 +78,7 @@ int convertDistance (int distance) { // convert distance to motor steps
 
 
 
-
+// ISRs for motor rotation
 
 void IRAM_ATTR rotateTimerEvent()
 {
