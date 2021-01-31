@@ -7,11 +7,15 @@ api = Blueprint('api', __name__, template_folder = 'templates')
 
 def unpickle_db():
     db_file = open('config.out', 'rb')
-    return pickle.load(db_file)
+    res = pickle.load(db_file)
+    db_file.close()
+    return res
 
 def unpickle_log():
     log_file = open('log.out', 'rb')
-    return pickle.load(log_file)
+    res = pickle.load(log_file)
+    log_file.close()
+    return res
 
 
 #Modify/fetch setting data
@@ -58,10 +62,15 @@ def get_settings():
 @api.route('/log', methods=['POST'])
 def log():
     data_req = request.get_json()
-    time = data_req['time']
-    is_open = data_req['is-open']
-    open_angle = data_req['open-angle']
-    
+
+    time = int(data_req['time'])
+    if(data_req['is-open'] == 'true'):
+        is_open = True 
+    else:
+        is_open = False
+
+    open_angle = int(data_req['open-angle'])
+
     put = Log(time, is_open, open_angle)
 
     curr_logs = unpickle_log()
