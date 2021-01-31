@@ -17,7 +17,7 @@ def unpickle_log():
 #Modify/fetch setting data
 @api.route('/set-sensitivity', methods=['POST'])
 def set_sensitivity():
-    new_sensitivity = request.form.get('data')
+    new_sensitivity = data_req['data']
     settings = unpickle_db()
     settings.sensitivity = new_sensitivity
     pickle.dump(settings, open('config.out', 'wb'))
@@ -25,7 +25,7 @@ def set_sensitivity():
 
 @api.route('/set-angle-limit', methods=['POST'])
 def set_angle_limit():
-    new_limit = request.form.get('data')
+    new_limit = data_req['data']
     settings = unpickle_db()
     settings.angle_limit = new_limit
     pickle.dump(settings, open('config.out', 'wb'))
@@ -33,7 +33,7 @@ def set_angle_limit():
 
 @api.route('/set-shutoff-duration', methods=['POST'])
 def set_shutoff_duration():
-    new_limit = request.form.get('data')
+    new_limit = data_req['data']
     settings = unpickle_db()
     settings.shutoff_duration = new_duration
     pickle.dump(settings, open('config.out', 'wb'))
@@ -54,9 +54,10 @@ def get_settings():
 #Send logging data
 @api.route('/log', methods=['POST'])
 def log():
-    time = request.form.get('time')
-    is_open = request.form.get('is-open')
-    open_angle = request.form.get('open-angle')
+    data_req = request.get_json()
+    time = data_req['time']
+    is_open = data_req['is-open']
+    open_angle = data_req['open-angle']
     
     put = Log(time, is_open, open_angle)
 

@@ -84,7 +84,7 @@
             <section class="about section bd-container" id="brid"></section>
             <div class="slidecontainer">
                 <h1>Gesture Sensitivity Control</h1><br/>
-                <input type="range" min="1" max="100" value="0" class="slider" id="myRange">
+                <input type="range" min="100" max="400" value="200" class="slider" id="myRange">
                 <p>Value: <span id="demo"></span></p>
               </div>
             </section>
@@ -95,8 +95,8 @@
                 <div class="app__container bd-grid">
                     <div class="app__data">   
                         <h2 class="section-title app__initial">Faucet Flow Control</h2>
-                        <input type="text" id="fangle" name="Flow Angle" placeholder="Enter the Faucet angle"> 
-                        <a href="#" class="button">Adjust Flow</a>
+                        <input type="text" id="fangle" name="Flow Angle" placeholder="Enter the max faucet angle"> 
+                        <button onclick="adjustAngle()" class="button">Set</button>
                     </div>
 
                     <img src="https://media.giphy.com/media/lVB8T943vjkc2ndh7n/giphy.gif" alt="" class="app__img">
@@ -109,8 +109,8 @@
                 <div class="app__container bd-grid">
                     <div class="app__data">   
                         <h2 class="section-title app__initial">Turn Off Time</h2>
-                        <input type="text" id="fangle" name="Flow Angle" placeholder="Enter the Faucet off time"> 
-                        <a href="#" class="button">Time Off</a>
+                        <input type="text" id="c" name="Flow Angle" placeholder="Enter the shutoff duration"> 
+                        <button onclick="adjustDuration()" class="button">Set</button>
                     </div>
 
                     <img src="https://media.giphy.com/media/lVB8T943vjkc2ndh7n/giphy.gif" alt="" class="app__img">
