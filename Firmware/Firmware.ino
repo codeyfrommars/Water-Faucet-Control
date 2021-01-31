@@ -1,22 +1,28 @@
 
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include <Arduino_JSON.h>
 
 #include "Rotator.h"
 #include <Wire.h>
 #include <VL53L1X.h>
 
+// insert WiFi network credentials here
 const char* ssid = "username";
 const char* password = "password";
 
+// motor objects
 Rotator* cMotor;
-//motor objects
 Rotator rot1;
 VL53L1X sensor;
 
 int maxAngle = 90; //this is the range of motion of your sink
+int sensitivity = 200; // this is the sensitivity of the sensor
 unsigned long onTimer = 0;
-unsigned long timerDelay = 10000; // time until automatic shutoff
+int timerDelay = 10000; // time until automatic shutoff
+bool faucetStatus = false; //false = closed, true = open
+unsigned long httpTimer = 0;
+int httpDelay = 10000; // http post every 10 seconds
 
 void setup() {
   Serial.begin(115200);
@@ -54,24 +60,90 @@ void setup() {
 }
 
 void loop() {
+
+  // GET settings from app
+  if ((WiFi.status() == WL_CONNECTED) && millis() - httpTimer > httpDelay) {
+    getFaucetSettings();
+    httpTimer = millis();
+  } else if (WiFi.status() != WL_CONNECTED){
+    Serial.println("Connection lost");
+  }
+
+  // read from sensor and move accordingly
   int distance = sensor.read();
-  if (distance < 200 && distance > 0) {
-    Serial.print(distance);
+  
+  if (distance < sensitivity && distance > 0) {
     int coord = convertDistance(distance);
     cMotor->moveSteps(-coord);
     onTimer = millis();
-    Serial.print(" current coord: ");
-    Serial.println(cMotor->currentCoord);
+    
+    sendFaucetStatus(distance);
+  
   } else {
     if (millis() - onTimer > timerDelay) { // after one minute, automatically shut off
       cMotor->moveSteps(0);
+
+      sendFaucetStatus(0);
     }
   }
+    
+}
+
+void getFaucetSettings() {
+  HTTPClient http;
+  http.begin("http://192.168.1.2:5000/api/get-settings");
+  int httpCode = http.GET();
+
+    if (httpCode > 0) {
+      String payload = http.getString();
+      JSONVar myObject = JSON.parse(payload);
+      JSONVar keys = myObject.keys();
+
+      maxAngle = keys[0];
+      sensitivity = keys[1];
+      timerDelay = keys[2];
+      
+    } else {
+      Serial.println("Error on HTTP request");
+    }
+    
+    http.end();
+
+}
+
+void sendFaucetStatus(int distance) {
+  int currentTime = millis();
+  int openAngle = distance * (maxAngle) / sensitivity;
+  if (distance > 50 && faucetStatus == false) { // send status to app
+    faucetStatus = true;
+    Serial.print("faucet open @ "); Serial.println(currentTime);
+  } else if (distance <= 50 && faucetStatus == true){
+    faucetStatus = false;
+    Serial.print("faucet close @ "); Serial.println(currentTime);
+  }
+
+  //http POST
+  HTTPClient http;
+
+  http.begin("http://192.168.1.2:5000/api/log");
+  http.addHeader("Content-Type", "application/json");
+  String httpRequestData = "{\"time\":\"" + String(currentTime) + "\",\"is_open\":\"" + String(faucetStatus) + "\",\"open_angle\":\"" + String(openAngle) + "\"}";
+  int httpCode = http.POST(httpRequestData);
+
+  if (httpCode > 0) {
+    String response = http.getString();
+    Serial.println(httpCode);
+    Serial.println(response);
+  } else {
+    Serial.println("Error on HTTP POST");
+  }
+    
+  http.end();
 }
 
 int convertDistance (int distance) { // convert distance to motor steps
   //300 -> 90 degrees (800 steps)
-  return distance * (3200 * maxAngle / 360) / 200;
+  return distance * (3200 * maxAngle / 360) / sensitivity;
 }
 
 
