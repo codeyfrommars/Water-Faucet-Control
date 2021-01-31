@@ -17,6 +17,7 @@ def unpickle_log():
 #Modify/fetch setting data
 @api.route('/set-sensitivity', methods=['POST'])
 def set_sensitivity():
+    data_req = request.get_json()
     new_sensitivity = data_req['data']
     settings = unpickle_db()
     settings.sensitivity = new_sensitivity
@@ -25,6 +26,7 @@ def set_sensitivity():
 
 @api.route('/set-angle-limit', methods=['POST'])
 def set_angle_limit():
+    data_req = request.get_json()
     new_limit = data_req['data']
     settings = unpickle_db()
     settings.angle_limit = new_limit
@@ -33,6 +35,7 @@ def set_angle_limit():
 
 @api.route('/set-shutoff-duration', methods=['POST'])
 def set_shutoff_duration():
+    data_req = request.get_json()
     new_limit = data_req['data']
     settings = unpickle_db()
     settings.shutoff_duration = new_duration

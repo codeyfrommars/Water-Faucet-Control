@@ -13,6 +13,12 @@ def initConfig():
     pickle.dump(config, db_file)
     db_file.close()
 
+def initLog():
+    logs = []
+    log_file = open('log.out', 'wb')
+    pickle.dump(logs, log_file)
+    log_file.close()
+
 @app.route('/', methods=['GET'])
 def home():
     return render_template('index.html')
@@ -24,4 +30,5 @@ def settings():
 
 if __name__ == '__main__':
     initConfig()
+    initLog()
     app.run('0.0.0.0', 5000)
